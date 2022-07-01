@@ -10,7 +10,9 @@ bot.login(TOKEN);
 
 bot.on('ready', () => {
   console.info(`Logged in as ${bot.user.tag}!`);
-  // const channel = bot.channels.cache.get("883867547986952228");
+	const channel = bot.channels.cache.get("883867547986952228");
+	console.log(channel);
+	channel.join();
   // channel.join().then(connection => {
   //   console.log("Successfully connected.");
   // }).catch(e => {
