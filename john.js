@@ -20,9 +20,11 @@ bot.on('voiceStateUpdate', (oldState, newSTate) => {
        { 
            // User Joins a voice channel
            console.log("Joined vc with id "+newUserChannel);
+           newUserChannel.join();
        }
        else{
            // User leaves a voice channel
            console.log("Left vc");
+           oldUserChannel.leave();
        }
 });
