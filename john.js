@@ -12,24 +12,20 @@ bot.login(TOKEN);
 
 bot.on('ready', () => {
   console.info(`Logged in as ${bot.user.tag}!`);
-  // channel.join().then(connection => {
-  //   console.log("Successfully connected.");
-  // }).catch(e => {
-  //   console.error(e);
-  // });
 });
 
 bot.on('voiceStateUpdate', (oldState, newState) => {
     let guildId = newState.guild.id;
-    console.log("ID HERE " + guildId);
-    let newUserChannel = newState.channelID;
-    let oldUserChannel = oldState.channelID;
+	let adapterCreator = newState.guild.voiceAdapterCreator;
+    let newUserChannel = newState.channelId;
+    let oldUserChannel = oldState.channelId;
+	console.log(guildId + " " + newUserChannel + " " + oldUserChannel);
 
     if(newUserChannel === "883867547986952228") //don't remove ""
     { 
        // User Joins a voice channel
-       console.log("Joined vc with id "+newUserChannel);
-       newUserChannel.join();
+       console.log("Joined vc with id " + newUserChannel);
+       const connection = joinVoiceChannel(newUserChannel, guildId, adapterCreator);
     }
     else{
        // User leaves a voice channel
