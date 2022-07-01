@@ -6,6 +6,8 @@ const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOI
 
 const TOKEN = process.env.TOKEN;
 
+const { joinVoiceChannel } = require('@discordjs/voice');
+
 bot.login(TOKEN);
 
 bot.on('ready', () => {
@@ -21,6 +23,8 @@ bot.on('ready', () => {
 });
 
 bot.on('voiceStateUpdate', (oldState, newState) => {
+    let guildId = newState.guild.id;
+    console.log("ID HERE " + guildId);
     let newUserChannel = newState.channelID;
     let oldUserChannel = oldState.channelID;
 
