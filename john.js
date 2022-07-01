@@ -10,6 +10,12 @@ bot.login(TOKEN);
 
 bot.on('ready', () => {
   console.info(`Logged in as ${bot.user.tag}!`);
+  const channel = bot.channels.cache.get("883867547986952228");
+  channel.join().then(connection => {
+    console.log("Successfully connected.");
+  }).catch(e => {
+    console.error(e);
+  });
 });
 
 bot.on('voiceStateUpdate', (oldState, newState) => {
