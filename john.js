@@ -6,6 +6,7 @@ const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOI
 
 const TOKEN = process.env.TOKEN;
 
+const { adapterCreator } = require('@discordjs/voice');
 const { joinVoiceChannel } = require('@discordjs/voice');
 
 bot.login(TOKEN);
@@ -15,17 +16,17 @@ bot.on('ready', () => {
 });
 
 bot.on('voiceStateUpdate', (oldState, newState) => {
-    let guildId = newState.guild.id;
-	let adapterCreator = newState.guild.voiceAdapterCreator;
+    let guildId = newState.guildId;
+	let adapterCreaaaaaaator = newState.guild.voiceAdapterCreator();
     let newUserChannel = newState.channelId;
     let oldUserChannel = oldState.channelId;
-	console.log(guildId + " " + newUserChannel + " " + oldUserChannel);
+	console.log(guildId + " " + newUserChannel + " " + adapterCreaaaaaaator);
 
     if(newUserChannel === "883867547986952228") //don't remove ""
     { 
        // User Joins a voice channel
        console.log("Joined vc with id " + newUserChannel);
-       const connection = joinVoiceChannel(newUserChannel, guildId, adapterCreator);
+       const connection = joinVoiceChannel(newUserChannel, guildId, adapterCreaaaaaaator);
     }
     else{
        // User leaves a voice channel
