@@ -16,7 +16,7 @@ bot.on('voiceStateUpdate', (oldState, newSTate) => {
 	let newUserChannel = newMember.channelID;
        let oldUserChannel = oldMember.channelID;
     
-       if(newUserChannel === "Channel id here") //don't remove ""
+       if(newUserChannel === "883867547986952228") //don't remove ""
        { 
            // User Joins a voice channel
            console.log("Joined vc with id "+newUserChannel);
