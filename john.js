@@ -12,19 +12,19 @@ bot.on('ready', () => {
   console.info(`Logged in as ${bot.user.tag}!`);
 });
 
-bot.on('voiceStateUpdate', (oldState, newSTate) => {
-	let newUserChannel = newMember.channelID;
-       let oldUserChannel = oldMember.channelID;
-    
-       if(newUserChannel === "883867547986952228") //don't remove ""
-       { 
-           // User Joins a voice channel
-           console.log("Joined vc with id "+newUserChannel);
-           newUserChannel.join();
-       }
-       else{
-           // User leaves a voice channel
-           console.log("Left vc");
-           oldUserChannel.leave();
-       }
+bot.on('voiceStateUpdate', (oldState, newState) => {
+    let newUserChannel = newState.channelID;
+    let oldUserChannel = oldState.channelID;
+
+    if(newUserChannel === "883867547986952228") //don't remove ""
+    { 
+       // User Joins a voice channel
+       console.log("Joined vc with id "+newUserChannel);
+       newUserChannel.join();
+    }
+    else{
+       // User leaves a voice channel
+       console.log("Left vc");
+       oldUserChannel.leave();
+    }
 });
