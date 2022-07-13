@@ -33,7 +33,7 @@ bot.on('voiceStateUpdate', (oldState, newState) => {
       console.log("Joined voice channel " + newUserChannel);
    } else {
    // User leaves a voice channel
-       const connection = getVoiceConnetion(guidId);
+       const connection = getVoiceConnection(guildId);
        connection.destroy();
        console.log("Left voice channel " + oldUserChannel);
    }
