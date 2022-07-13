@@ -18,7 +18,7 @@ bot.on('ready', () => {
 });
 
 bot.on('voiceStateUpdate', (oldState, newState) => {
-    let guildId = newState.guildId;
+    let guildId = newState.guild.id;
 	let adapterCreator = newState.guild.voiceAdapterCreator;
     let newUserChannel = newState.channelId;
     let oldUserChannel = oldState.channelId;
@@ -32,10 +32,8 @@ bot.on('voiceStateUpdate', (oldState, newState) => {
          channelId: newUserChannel,
          guildId: guildId,
          adapterCreator: adapterCreator});
-       connection.subscribe(createAudioPlayer());
        console.log("connection " + connection);
-    }
-    else{
+    } else{
        // User leaves a voice channel
        console.log("Left vc");
        oldUserChannel.leave();
