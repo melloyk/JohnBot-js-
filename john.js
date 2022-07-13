@@ -18,21 +18,23 @@ bot.on('ready', () => {
 });
 
 bot.on('voiceStateUpdate', (oldState, newState) => {
-    let guildId = newState.guild.id;
+   let guildId = newState.guild.id;
 	let adapterCreator = newState.guild.voiceAdapterCreator;
-    let newUserChannel = newState.channelId;
-    let oldUserChannel = oldState.channelId;
-    let connection = null;
+   let newUserChannel = newState.channelId;
+   let oldUserChannel = oldState.channelId;
 
-    if(newUserChannel === "883867547986952228") //don't remove ""
-    { 
-       // User Joins a voice channel
-      connection = joinVoiceChannel({
+   if(newUserChannel === "883867547986952228") // don't remove ""
+   { 
+   // User Joins a voice channel
+      const connection = joinVoiceChannel({
          channelId: newUserChannel,
          guildId: guildId,
          adapterCreator: adapterCreator});
-    } else{
-       // User leaves a voice channel
+      console.log("Joined voice channel " + newUserChannel);
+   } else {
+   // User leaves a voice channel
+       const connection = getVoiceConnetion(guidId);
        connection.destroy();
-    }
+       console.log("Left voice channel " + oldUserChannel);
+   }
 });
