@@ -6,6 +6,9 @@ const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOI
 
 const TOKEN = process.env.TOKEN;
 
+const { CreateVoiceConnectionOptions } = require('@discordjs/voice');
+const { JoinVoiceChannelOptions } = require('@discordjs/voice');
+
 const { joinVoiceChannel, generateDependencyReport } = require('@discordjs/voice');
 
 bot.login(TOKEN);
