@@ -27,11 +27,12 @@ bot.on('voiceStateUpdate', (oldState, newState) => {
     if(newUserChannel === "883867547986952228") //don't remove ""
     { 
        // User Joins a voice channel
-       console.log("Joined vc with id " + newUserChannel);
+       console.log("atempting to joined vc with id " + newUserChannel);
        const connection = joinVoiceChannel({
          channelId: newUserChannel,
          guildId: guildId,
          adapterCreator: adapterCreator});
+       console.log("connection " + connection);
     }
     else{
        // User leaves a voice channel
