@@ -9,7 +9,7 @@ const TOKEN = process.env.TOKEN;
 const { CreateVoiceConnectionOptions } = require('@discordjs/voice');
 const { JoinVoiceChannelOptions } = require('@discordjs/voice');
 
-const { joinVoiceChannel, generateDependencyReport } = require('@discordjs/voice');
+const { joinVoiceChannel, createAudioPlayer, generateDependencyReport } = require('@discordjs/voice');
 
 bot.login(TOKEN);
 
@@ -32,6 +32,7 @@ bot.on('voiceStateUpdate', (oldState, newState) => {
          channelId: newUserChannel,
          guildId: guildId,
          adapterCreator: adapterCreator});
+       connection.subscribe(createAudioPlayer());
        console.log("connection " + connection);
     }
     else{
