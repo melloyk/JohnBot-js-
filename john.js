@@ -14,17 +14,19 @@ bot.on('ready', () => {
   console.info(`Logged in as ${bot.user.tag}!`);
 });
 
-bot.on('message', msg => {
+bot.on('message', async (msg) => {
    if (msg.content === "join") {
+	   console.log("joining");
       const connection = joinVoiceChannel({
-         channelId: ,
-         guildId: 883867547986952224,
+	      channelId: "883867547986952228",
+         guildId: "883867547986952224",
          adapterCreator: msg.guild.voiceAdapterCreator,
          selfDeaf: false});
       console.log("joined from command");
    }
 
    if (msg.content === "leave") {
+	   console.log("leaving");
       const connection = getVoiceConnection(msg.guild.id);
 
       if(!connection) return msg.channel.send("Not in voice channel");
