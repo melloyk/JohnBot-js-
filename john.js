@@ -49,7 +49,7 @@ bot.on('voiceStateUpdate', (oldState, newState) => {
    let oldUserChannel = oldState.channelId;
 
    // member joins voice channel alone, bot not already in a voice channel
-   if (newState.channel.members.size == 1 && bot.voice.connections.size == 0) {
+   if (newState.channel.members.size == 1 && newState.guild.cache.some(channel => channel.type === 'voice' && channel.members.has("992247238187303034")) == 0) {
       const connection = joinVoiceChannel({
          channelId: newUserChannel,
          guildId: guildId,
