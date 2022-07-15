@@ -49,7 +49,7 @@ bot.on('voiceStateUpdate', (oldState, newState) => {
    let oldUserChannel = oldState.channelId;
 
    // member joins voice channel alone, bot not already in a voice channel
-   if (newState.channel.members.size == 1 && !getVoiceConnection(newState.guild.id)) {
+   if (newState.channel != null && newState.channel.members.size == 1 && !getVoiceConnection(newState.guild.id)) {
       const connection = joinVoiceChannel({
          channelId: newUserChannel,
          guildId: guildId,
@@ -57,7 +57,7 @@ bot.on('voiceStateUpdate', (oldState, newState) => {
       selfDeaf: false});
       console.log("Joined voice channel " + newUserChannel);
    }  // second member joins voice channel with sole member and bot
-   else if (newState.channel.members.size > 1 && getVoiceConnection(newState.guild.id) && newState.channelId == bot.voice.connection.channelId) {
+   else if (newState.channel != null && newState.channel.members.size > 1 && getVoiceConnection(newState.guild.id) && newState.channelId == bot.voice.connection.channelId) {
       const connection = getVoiceConnection(newState.guild.id);
       connection.destroy();
       console.log("Left voice channel " + newUserChannel);
