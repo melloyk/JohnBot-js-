@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const { Client, Intents } = require('discord.js');
 
-const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES]})
+const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES]})
 
 const TOKEN = process.env.TOKEN;
 
