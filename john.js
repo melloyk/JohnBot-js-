@@ -48,20 +48,39 @@ bot.on('voiceStateUpdate', (oldState, newState) => {
    let newUserChannel = newState.channelId;
    let oldUserChannel = oldState.channelId;
 
-   if(newUserChannel === "883867547986952228") // don't remove ""
-   { 
-   // User Joins a voice channel
+   // member joins voice channel alone, bot not already in a voice channel
+   if (newState.channel.members.size == 1 && bot.voice.connections.size == 0) {
       const connection = joinVoiceChannel({
          channelId: newUserChannel,
          guildId: guildId,
          adapterCreator: adapterCreator,
       selfDeaf: false});
       console.log("Joined voice channel " + newUserChannel);
-   } else {
-   // User leaves a voice channel
-       const connection = getVoiceConnection(oldState.guild.id);
-	   connection.disconnect();
-       connection.destroy();
-       console.log("Left voice channel " + oldUserChannel);
+   }  // second member joins voice channel with sole member and bot
+   else if (newState.channel.members.size > 1 && bot.voice.connections.size == 1 && newState.channelId == bot.voice.connection.channelId) {
+      const connection = getVoiceConnection(newState.guild.id);
+      connection.destroy();
+      console.log("Left voice channel " + newUserChannel);
+   }  // last member left voice channel that bot was in
+   else if (oldState.channel.members.size == 0 && bot.voice.connections.size == 1 && oldState.channelId == bot.voice.connection.channelId) {
+      const connection = getVoiceConnection(oldState.guild.id);
+      connection.destroy();
+      console.log("Left voice channel " + oldUserChannel);
    }
+
+   // if (newUserChannel === "883867547986952228")
+   // { 
+   // // User Joins a voice channel
+   //    const connection = joinVoiceChannel({
+   //       channelId: newUserChannel,
+   //       guildId: guildId,
+   //       adapterCreator: adapterCreator,
+   //    selfDeaf: false});
+   //    console.log("Joined voice channel " + newUserChannel);
+   // } else {
+   // // User leaves a voice channel
+   //    const connection = getVoiceConnection(oldState.guild.id);
+	  //  connection.destroy();
+   //    console.log("Left voice channel " + oldUserChannel);
+   // }
 });
