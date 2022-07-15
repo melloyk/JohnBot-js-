@@ -6,9 +6,6 @@ const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOI
 
 const TOKEN = process.env.TOKEN;
 
-// const { CreateVoiceConnectionOptions } = require('@discordjs/voice');
-// const { JoinVoiceChannelOptions } = require('@discordjs/voice');
-
 const { joinVoiceChannel, getVoiceConnection } = require('@discordjs/voice');
 
 bot.login(TOKEN);
@@ -16,6 +13,27 @@ bot.login(TOKEN);
 bot.on('ready', () => {
   console.info(`Logged in as ${bot.user.tag}!`);
 });
+
+bot.on('message', msg => {
+   if (msg.content === "join") {
+      const connection = joinVoiceChannel({
+         channelId: ,
+         guildId: 883867547986952224,
+         adapterCreator: msg.guild.voiceAdapterCreator,
+         selfDeaf: false});
+      console.log("joined from command");
+   }
+
+   if (msg.content === "leave") {
+      const connection = getVoiceConnection(msg.guild.id);
+
+      if(!connection) return msg.channel.send("Not in voice channel");
+
+      connection.destroy();
+
+      console.log("left from command");
+   }
+})
 
 bot.on('voiceStateUpdate', (oldState, newState) => {
 	console.log("oldState: " + oldState + "\tnewState: " + newState);
