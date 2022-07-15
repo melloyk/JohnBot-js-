@@ -57,12 +57,12 @@ bot.on('voiceStateUpdate', (oldState, newState) => {
       selfDeaf: false});
       console.log("Joined voice channel " + newUserChannel);
    }  // second member joins voice channel with sole member and bot
-   else if (newState.channel != null && newState.channel.members.size > 1 && getVoiceConnection(newState.guild.id) && newState.channelId == bot.voice.connection.channelId) {
+   else if (newState.channel != null && newState.channel.members.size > 1 && getVoiceConnection(newState.guild.id) && newState.channelId == getVoiceConnection(newState.guild.id).channelId) {
       const connection = getVoiceConnection(newState.guild.id);
       connection.destroy();
       console.log("Left voice channel " + newUserChannel);
    }  // last member left voice channel that bot was in
-   else if (oldState.channel.members.size == 0 && bot.voice.connections.size == 1 && oldState.channelId == bot.voice.connection.channelId) {
+   else if (oldState.channel != null && oldState.channel.members.size == 1 && getVoiceConnection(oldState.guild.id) && oldState.channelId == getVoiceConnection(oldState.guild.id).channelId) {
       const connection = getVoiceConnection(oldState.guild.id);
       connection.destroy();
       console.log("Left voice channel " + oldUserChannel);
