@@ -9,7 +9,7 @@ const TOKEN = process.env.TOKEN;
 // const { CreateVoiceConnectionOptions } = require('@discordjs/voice');
 // const { JoinVoiceChannelOptions } = require('@discordjs/voice');
 
-const { joinVoiceChannel, getVoiceConnetion } = require('@discordjs/voice');
+const { joinVoiceChannel, getVoiceConnection } = require('@discordjs/voice');
 
 bot.login(TOKEN);
 
@@ -18,6 +18,7 @@ bot.on('ready', () => {
 });
 
 bot.on('voiceStateUpdate', (oldState, newState) => {
+	console.log("oldState: " + oldState + "\tnewState: " + newState);
    let guildId = newState.guild.id;
 	let adapterCreator = newState.guild.voiceAdapterCreator;
    let newUserChannel = newState.channelId;
@@ -29,11 +30,13 @@ bot.on('voiceStateUpdate', (oldState, newState) => {
       const connection = joinVoiceChannel({
          channelId: newUserChannel,
          guildId: guildId,
-         adapterCreator: adapterCreator});
+         adapterCreator: adapterCreator,
+      selfDeaf: false});
       console.log("Joined voice channel " + newUserChannel);
    } else {
    // User leaves a voice channel
-       const connection = getVoiceConnection(guildId);
+       const connection = getVoiceConnection(oldState.guild.id);
+	   connection.disconnect();
        connection.destroy();
        console.log("Left voice channel " + oldUserChannel);
    }
