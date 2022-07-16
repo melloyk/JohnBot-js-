@@ -40,6 +40,7 @@ bot.on('message', async (msg) => {
 bot.on('voiceStateUpdate', (oldState, newState) => {
    // voiceStateUpdate from bot itself, ignore
    if (oldState.id === "992247238187303034" || newState.id === "992247238187303034") {
+	   console.log("getVoiceConnection: " + bot.voice.connections);
     return;  
    }
 
@@ -62,7 +63,7 @@ bot.on('voiceStateUpdate', (oldState, newState) => {
       connection.destroy();
       console.log("Left voice channel " + newUserChannel);
    }  // last member left voice channel that bot was in
-   else if (oldState.channel != null && oldState.channel.members.size == 1 && getVoiceConnection(oldState.guild.id) && oldState.channelId == getVoiceConnection(oldState.guild.id).channelId) {
+   else if (oldState.channel != null && oldState.channel.members.size == 1 && getVoiceConnection(oldState.guild.id) && bot.voice.connections.some((connection) => connection.channel.id === oldState.guild.id)) {
       const connection = getVoiceConnection(oldState.guild.id);
       connection.destroy();
       console.log("Left voice channel " + oldUserChannel);
